@@ -1,0 +1,6 @@
+type Pet {
+  greed: String!
+  id: Int!
+  name: String!
+  type: String
+}

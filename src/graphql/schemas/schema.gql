@@ -1,0 +1,11 @@
+const { loadSchemaSync } = require('@graphql-tools/load');
+const { GraphQLFileLoader } = require('@graphql-tools/graphql-file-loader');
+const path = require('path');
+
+const schema = loadSchemaSync(path.join(__dirname, './schemas/*.gql'), { // Load all gql files in the schemas folder
+  loaders: [
+    new GraphQLFileLoader()
+  ]
+});
+
+module.exports = schema;
