@@ -4,10 +4,10 @@ import { AppService } from './app.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { PetController } from './pet/pet.controller';
-import { PetModule } from './pet/pet.module';
 // import { AuthModule } from './auth/auth.module';
 // import { UsersModule } from './users/users.module';
+import { MarketModule } from './market/market.module';
+import { MarketController } from './market/market.controller';
 
 @Module({
   imports: [
@@ -16,9 +16,9 @@ import { PetModule } from './pet/pet.module';
       sortSchema: true,
       autoSchemaFile: join(process.cwd(), 'src/graphql/schemas/schema.gql'),
     }),
-    PetModule,
+    MarketModule,
   ],
-  controllers: [AppController, PetController],
+  controllers: [AppController, MarketController],
   providers: [AppService],
 })
 export class AppModule {}
