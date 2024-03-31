@@ -7,7 +7,7 @@ export class UsersService {
   // Load prisma service instance.
   constructor(private prisma: PrismaService) {}
 
-  async user(
+  async getUser(
     userWhereUniqueInput: Prisma.usersWhereUniqueInput,
   ): Promise<PrismaUser | null> {
     return this.prisma.users.findUnique({
@@ -15,7 +15,7 @@ export class UsersService {
     });
   }
 
-  async users(params: {
+  async getUsers(params: {
     skip?: number;
     take?: number;
     cursor?: Prisma.usersWhereUniqueInput;
@@ -52,6 +52,15 @@ export class UsersService {
   async deleteUser(where: Prisma.usersWhereUniqueInput): Promise<PrismaUser> {
     return this.prisma.users.delete({
       where,
+    });
+  }
+
+  async findByUsername(username: string): Promise<PrismaUser | null> {
+    if (!username) return null;
+    return this.prisma.users.findUnique({
+      where: {
+        username,
+      },
     });
   }
 }

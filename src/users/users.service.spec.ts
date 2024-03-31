@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { PrismaService } from '../services/prisma.service';
-import { Prisma, users as PrismaUser } from '@prisma/client';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const userMockData = require('../__mocks__/user.json');
 
 jest.mock('@prisma/client');
@@ -19,13 +19,11 @@ describe('UsersService', () => {
           provide: PrismaService,
           useValue: {
             users: {
-              findUnique: jest
-                .fn()
-                .mockResolvedValue(Promise<PrismaUser | null>),
-              findMany: jest.fn().mockResolvedValue(Promise<PrismaUser[]>),
-              create: jest.fn().mockResolvedValue(Promise<PrismaUser>),
-              update: jest.fn().mockResolvedValue(Promise<PrismaUser>),
-              delete: jest.fn().mockResolvedValue(Promise<PrismaUser>),
+              findUnique: jest.fn().mockResolvedValue(userMockData),
+              findMany: jest.fn().mockResolvedValue(userMockData),
+              create: jest.fn().mockResolvedValue(userMockData),
+              update: jest.fn().mockResolvedValue(userMockData),
+              delete: jest.fn().mockResolvedValue(userMockData),
             },
           },
         },
@@ -43,11 +41,24 @@ describe('UsersService', () => {
 
   describe('user', () => {
     it('should return a user by unique identifier', async () => {
-      const result = await service.user({ id: '1' });
+      const result = await service.getUser({ id: '1' });
       expect(result).toEqual(userMockData);
+      expect(prisma.users.findUnique).toHaveBeenCalledTimes(1);
       expect(prisma.users.findUnique).toHaveBeenCalledWith({
-        where: { id: 1 },
+        where: { id: '1' },
       });
+    });
+  });
+
+  describe('findByUsername method', () => {
+    it('should return Null when username has not passed', async () => {
+      const result = await service.findByUsername('');
+      expect(result).toEqual(null);
+    });
+
+    it('should return the user when username has passed', async () => {
+      const result = await service.findByUsername('john_doe');
+      expect(result).toEqual(userMockData);
     });
   });
 

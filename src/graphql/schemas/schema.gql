@@ -10,5 +10,11 @@ type PetB {
 }
 
 type Query {
+  getTokens(userId: String!, username: String!): TokenResponse!
   pets: [PetB!]!
+}
+
+type TokenResponse {
+  accessToken: String!
+  refreshToken: String!
 }

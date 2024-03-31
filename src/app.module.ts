@@ -4,10 +4,9 @@ import { AppService } from './app.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-// import { AuthModule } from './auth/auth.module';
-// import { UsersModule } from './users/users.module';
 import { MarketModule } from './market/market.module';
 import { MarketController } from './market/market.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +16,7 @@ import { MarketController } from './market/market.controller';
       autoSchemaFile: join(process.cwd(), 'src/graphql/schemas/schema.gql'),
     }),
     MarketModule,
+    AuthModule,
   ],
   controllers: [AppController, MarketController],
   providers: [AppService],
