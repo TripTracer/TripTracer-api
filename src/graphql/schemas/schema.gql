@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Pet {
+type PetB {
   greed: String!
   id: Int!
   name: String!
@@ -10,5 +10,11 @@ type Pet {
 }
 
 type Query {
-  pets: [Pet!]!
+  getTokens(userId: String!, username: String!): TokenResponse!
+  pets: [PetB!]!
+}
+
+type TokenResponse {
+  accessToken: String!
+  refreshToken: String!
 }
