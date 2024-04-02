@@ -16,7 +16,10 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      expect(appController.getHello()).toBe(
+        "Please don't call this URL directly.",
+      );
+      expect(appController.getHello()).not.toBe('Hello World!');
     });
   });
 });
