@@ -1,8 +1,8 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class Pet {
-  @Field((type) => Int)
+export class PetB {
+  @Field(() => Int)
   id: number;
 
   @Field()
@@ -13,5 +13,4 @@ export class Pet {
 
   @Field()
   greed: string;
-
 }
