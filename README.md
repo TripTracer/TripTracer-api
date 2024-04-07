@@ -124,6 +124,14 @@ When you are working on a feature, Please consider thaese concepts:
 - Each time after following to preceding step, If you saw some conflicts, you have to solve those conflicts without removing the other people code!
 - Choose the right and the most appropriate title for your commits.
 
+## Prisma
+
+After any changes on the database (Prisma's schema) you need to run the command below:
+
+`npx prisma generate`
+
+This command will update prisma schema in the prisma folder.
+
 ## License
 
 Nest is [MIT licensed](LICENSE).

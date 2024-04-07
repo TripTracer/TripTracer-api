@@ -5,7 +5,7 @@ export interface iUser {
   email: string;
   firstName: string;
   lastName: string;
-  passwords: string;
+  password: string;
   role: string;
   isVerified: boolean;
   status: UserStatus;
