@@ -2,6 +2,34 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CheckIfUserExistsResponse {
+  isUser: Boolean!
+}
+
+input CreateUserInput {
+  DOB: String
+  address: String
+  cratedAt: String!
+  email: String
+  firstName: String
+  isVerified: Boolean!
+  language: String
+  lastLogin: String
+  lastName: String
+  mobile: String!
+  password: String!
+  role: String!
+  status: String!
+  timeZone: String
+  twoFactorEnabled: Boolean!
+  updatedAt: String
+  username: String!
+}
+
+type Mutation {
+  createUser(userData: CreateUserInput!): UserResponse!
+}
+
 type PetB {
   greed: String!
   id: Int!
@@ -10,6 +38,7 @@ type PetB {
 }
 
 type Query {
+  checkIfUserExists(type: String!, value: String!): CheckIfUserExistsResponse!
   getTokens(userId: String!, username: String!): TokenResponse!
   pets: [PetB!]!
 }
@@ -17,4 +46,19 @@ type Query {
 type TokenResponse {
   accessToken: String!
   refreshToken: String!
+}
+
+type UserResponse {
+  email: String!
+  id: ID!
+  mobile: String!
+  status: UserStatus!
+  username: String!
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  SUSPENDED
 }

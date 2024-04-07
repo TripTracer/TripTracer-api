@@ -7,6 +7,7 @@ import { join } from 'path';
 import { MarketModule } from './market/market.module';
 import { MarketController } from './market/market.controller';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     MarketModule,
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController, MarketController],
   providers: [AppService],
