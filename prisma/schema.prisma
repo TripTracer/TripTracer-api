@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client-js",
+  previewFeatures = ["mongodb]
 }
 
 datasource db {
@@ -24,7 +25,7 @@ model users {
   email            String?   @unique
   firstName        String?
   lastName         String?
-  passwords        String
+  password        String
   role             String
   isVerified       Boolean   @default(false)
   status           UserStatus
