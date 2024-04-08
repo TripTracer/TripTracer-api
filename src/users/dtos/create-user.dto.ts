@@ -33,7 +33,7 @@ export class CreateUserDto {
 
   @IsString()
   @MinLength(8)
-  passwords: string;
+  password: string;
 
   @IsString()
   role: string;
