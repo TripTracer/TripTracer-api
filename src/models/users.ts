@@ -1,5 +1,5 @@
 export interface iUser {
-  id: string;
+  _id: string;
   username: string;
   mobile: string;
   email: string;

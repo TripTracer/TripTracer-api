@@ -95,8 +95,3 @@ export class UserResponse {
   @Field(() => UserStatus)
   status: UserStatus;
 }
-
-// id: string;
-// : Date;
-// : Date;
-// : Date;
