@@ -6,12 +6,15 @@ import {
   UserResponse,
 } from './users.entity';
 import { Prisma } from '@prisma/client';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Resolver(() => CheckIfUserExistsResponse)
 export class UsersResolver {
   constructor(private userService: UsersService) {}
 
   @Query(() => CheckIfUserExistsResponse)
+  @UseGuards(AuthGuard('jwt'))
   async checkIfUserExists(
     @Args('type') type: string,
     @Args('value') value: string,
@@ -24,6 +27,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => UserResponse)
+  @UseGuards(AuthGuard('jwt'))
   async createUser(
     @Args('userData') createUserInput: CreateUserInput,
   ): Promise<UserResponse> {

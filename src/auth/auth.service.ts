@@ -1,16 +1,16 @@
-import { Injectable } from '@nestjs/common';
-// import { BadRequestException, Injectable } from '@nestjs/common';
-// import { CreateUserDto } from '../users/dtos/create-user.dto';
-// import { UsersService } from '../users/users.service';
-// import * as argon2 from 'argon2';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateUserDto } from '../users/dtos/create-user.dto';
+import { UsersService } from '../users/users.service';
+import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { iUser } from 'src/models/users';
 // import { AuthDto } from './dtos/auth.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    // private usersService: UsersService,
+    private usersService: UsersService,
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
@@ -44,25 +44,26 @@ export class AuthService {
       refreshToken,
     };
   }
-  // async signUp(createUserDto: CreateUserDto): Promise<any> {
-  //   // Check if user exists
-  //   const userExists = await this.usersService.getUser({
-  //     username: createUserDto.username,
-  //   });
-  //   if (userExists) {
-  //     throw new BadRequestException('User already exists');
-  //   }
 
-  //   // Hash password
-  //   const hash = await this.hashData(createUserDto.password);
-  //   const newUser = await this.usersService.createUser({
-  //     ...createUserDto,
-  //     password: hash,
-  //   });
-  //   const tokens = await this.getTokens(newUser._id, newUser.username);
-  //   await this.updateRefreshToken(newUser._id, tokens.refreshToken);
-  //   return tokens;
-  // }
+  async signUp(createUserDto: CreateUserDto): Promise<any> {
+    // Check if user exists
+    const userExists = await this.usersService.getUser({
+      username: createUserDto.username,
+    });
+    if (userExists) {
+      throw new BadRequestException('User already exists');
+    }
+
+    // Hash password
+    const hash = await this.hashData(createUserDto.password);
+    const newUser = (await this.usersService.createUser({
+      ...createUserDto,
+      password: hash,
+    })) as unknown as iUser;
+    const tokens = await this.getTokens(newUser._id, newUser.username);
+    await this.updateRefreshToken(newUser._id, tokens.refreshToken);
+    return tokens;
+  }
 
   // async signIn(data: AuthDto) {
   //   // Check if user exists
@@ -80,14 +81,15 @@ export class AuthService {
   //   return this.usersService.update(userId, { refreshToken: null });
   // }
 
-  // hashData(data: string) {
-  //   return argon2.hash(data);
-  // }
+  hashData(data: string) {
+    return argon2.hash(data);
+  }
 
-  // async updateRefreshToken(userId: string, refreshToken: string) {
-  //   const hashedRefreshToken = await this.hashData(refreshToken);
-  //   await this.usersService.update(userId, {
-  //     refreshToken: hashedRefreshToken,
-  //   });
-  // }
+  async updateRefreshToken(userId: string, refreshToken: string) {
+    const hashedRefreshToken = await this.hashData(refreshToken);
+    return hashedRefreshToken;
+    // await this.usersService.updateUser(userId, {
+    //   refreshToken: hashedRefreshToken,
+    // });
+  }
 }
