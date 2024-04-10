@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 // import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 // import { Request } from 'express';
 // import { CreateUserDto } from 'src/users/dtos/create-user.dto';
@@ -23,4 +23,10 @@ export class AuthController {
   // logout(@Req() req: Request) {
   //   this.authService.logout(req.user['sub']);
   // }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login')
+  signIn(@Body() signInDto: Record<string, string>) {
+    return this.authService.signIn(signInDto.username, signInDto.password);
+  }
 }
