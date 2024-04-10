@@ -15,6 +15,14 @@ import { UsersModule } from './users/users.module';
       driver: ApolloDriver,
       sortSchema: true,
       autoSchemaFile: join(process.cwd(), 'src/graphql/schemas/schema.gql'),
+      formatError: (error) => {
+        return {
+          error: error.extensions?.code || 'Error',
+          statusCode: error.extensions?.status || 500,
+          data: null,
+          message: error.message,
+        };
+      },
     }),
     MarketModule,
     AuthModule,

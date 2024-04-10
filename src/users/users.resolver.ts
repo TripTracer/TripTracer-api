@@ -8,6 +8,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { SimpleAuthGuard } from 'src/auth/SimpleAuthGuard';
 
 @Resolver(() => CheckIfUserExistsResponse)
 export class UsersResolver {
@@ -27,7 +28,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => UserResponse)
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(SimpleAuthGuard)
   async createUser(
     @Args('userData') createUserInput: CreateUserInput,
   ): Promise<UserResponse> {

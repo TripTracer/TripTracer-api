@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from '../users/dtos/create-user.dto';
 import { UsersService } from '../users/users.service';
 import * as argon2 from 'argon2';
@@ -91,5 +95,16 @@ export class AuthService {
     // await this.usersService.updateUser(userId, {
     //   refreshToken: hashedRefreshToken,
     // });
+  }
+
+  async signIn(username: string, userPassword: string) {
+    const user = await this.usersService.findOne(username);
+    if (user.password !== userPassword) {
+      throw new UnauthorizedException();
+    }
+    const payload = { sub: user.userId, username: user.username };
+    return {
+      accessToken: await this.jwtService.signAsync(payload),
+    };
   }
 }
