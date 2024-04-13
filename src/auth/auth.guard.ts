@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
+import { authMessages } from 'src/messages/auth.messages';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -16,27 +17,31 @@ export class AuthGuard implements CanActivate {
     const { req } = ctx.getContext();
 
     if (!req) {
-      throw new UnauthorizedException('No request found in GraphQL context');
+      throw new UnauthorizedException(authMessages.noRequestFound);
     }
 
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-      throw new UnauthorizedException('Authorization header is missing');
+      throw new UnauthorizedException(
+        authMessages.authorizationHeaderIsMissing,
+      );
     }
 
-    const [type, token] = authHeader.split(' ');
+    const [type, token] = authHeader.split(' ') ?? [];
     if (type !== 'Bearer' || !token) {
-      throw new UnauthorizedException('Invalid or missing token');
+      throw new UnauthorizedException(authMessages.invalidOrMissingToken);
     }
 
     try {
-      await this.jwtService.verifyAsync(token, {
-        secret: process.env.JWT_ACCESS_SECRET, // Ensure this matches the secret used to sign the JWT
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_ACCESS_SECRET,
       });
-      // Optionally attach user information to the request here
+      // 💡 We're assigning the payload to the request object here
+      // so that we can access it in our route handlers
+      req['user'] = payload;
       return true;
     } catch (error) {
-      throw new UnauthorizedException('Token is invalid or expired');
+      throw new UnauthorizedException(authMessages.tokenIsInvalidOrExpired);
     }
   }
 }
