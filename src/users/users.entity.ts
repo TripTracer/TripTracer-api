@@ -80,6 +80,7 @@ registerEnumType(UserStatus, {
 
 @ObjectType()
 export class UserResponse {
+  [x: string]: any;
   @Field(() => ID)
   id: string;
 
