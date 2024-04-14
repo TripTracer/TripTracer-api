@@ -98,11 +98,11 @@ export class AuthService {
   }
 
   async signIn(username: string, userPassword: string) {
-    const user = await this.usersService.findOne(username);
+    const user = await this.usersService.getUser({ username });
     if (user.password !== userPassword) {
       throw new UnauthorizedException();
     }
-    const payload = { sub: user.userId, username: user.username };
+    const payload = { sub: user.id, username: user.username };
     return {
       accessToken: await this.jwtService.signAsync(payload),
     };

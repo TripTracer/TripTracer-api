@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
-import { authMessages } from 'src/messages/auth.messages';
+import { authMessages } from '../messages/auth.messages';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
