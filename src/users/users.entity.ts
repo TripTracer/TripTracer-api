@@ -42,7 +42,7 @@ export class CreateUserInput {
   status: UserStatus;
 
   @Field({ nullable: true })
-  DOB?: string;
+  DOB?: Date;
 
   @Field({ nullable: true })
   address?: string;
@@ -57,13 +57,13 @@ export class CreateUserInput {
   timeZone?: string;
 
   @Field()
-  cratedAt: string;
+  cratedAt: Date;
 
   @Field({ nullable: true })
-  updatedAt?: string;
+  updatedAt?: Date;
 
   @Field({ nullable: true })
-  lastLogin?: string;
+  lastLogin?: Date;
 }
 
 export enum UserStatus {

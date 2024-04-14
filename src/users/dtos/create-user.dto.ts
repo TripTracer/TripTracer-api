@@ -46,7 +46,7 @@ export class CreateUserDto {
 
   @IsDateString()
   @IsOptional()
-  DOB?: string;
+  DOB?: Date;
 
   @IsString()
   @IsOptional()
