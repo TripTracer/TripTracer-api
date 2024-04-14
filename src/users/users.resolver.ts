@@ -7,8 +7,7 @@ import {
 } from './users.entity';
 import { Prisma } from '@prisma/client';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
-// import { SimpleAuthGuard } from 'src/auth/SimpleAuthGuard';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Resolver(() => CheckIfUserExistsResponse)
 export class UsersResolver {
