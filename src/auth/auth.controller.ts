@@ -19,21 +19,6 @@ import { AuthGuard } from './auth.guard';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  // @Post('signup')
-  // signup(@Body() createUserDto: CreateUserDto) {
-  //   return this.authService.signUp(createUserDto);
-  // }
-
-  // @Post('signin')
-  // signin(@Body() data: AuthDto) {
-  //   return this.authService.signIn(data);
-  // }
-
-  // @Get('logout')
-  // logout(@Req() req: Request) {
-  //   this.authService.logout(req.user['sub']);
-  // }
-
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: Record<string, string>) {
