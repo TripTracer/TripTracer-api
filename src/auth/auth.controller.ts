@@ -1,3 +1,5 @@
+import { Csrf } from 'ncsrf';
+
 import {
   Body,
   Controller,
@@ -8,11 +10,13 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
+
+import { AuthGuard } from './auth.guard';
 // import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 // import { Request } from 'express';
 // import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+
 // import { AuthDto } from './dtos/auth.dto';
 
 @Controller('auth')
@@ -21,6 +25,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
+  @Csrf()
   signIn(@Body() signInDto: Record<string, string>) {
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
@@ -29,5 +34,12 @@ export class AuthController {
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @Get('token')
+  getCsrfToken(@Request() req): any {
+    return {
+      token: req.csrfToken(),
+    };
   }
 }
