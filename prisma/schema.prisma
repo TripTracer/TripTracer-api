@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["mongodb"]
 }
 
@@ -19,22 +19,22 @@ enum UserStatus {
 }
 
 model users {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId
-  username         String    @unique
-  mobile           String    @unique
-  email            String?   @unique
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  username         String     @unique
+  mobile           String     @unique
+  email            String?    @unique
   firstName        String?
   lastName         String?
-  password        String
+  password         String
   role             String
-  isVerified       Boolean   @default(false)
+  isVerified       Boolean    @default(false)
   status           UserStatus
   DOB              DateTime?
   address          String?
-  cratedAt         DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  cratedAt         DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
   lastLogin        DateTime?
-  twoFactorEnabled Boolean   @default(false)
+  twoFactorEnabled Boolean    @default(false)
   language         String?
   timeZone         String?
 }

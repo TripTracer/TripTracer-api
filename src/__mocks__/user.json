@@ -4,7 +4,7 @@
   "email": "johndoe@example.com",
   "firstName": "John",
   "lastName": "Doe",
-  "passwords": "hashed_password_string",
+  "password": "hashed_password_string",
   "role": "user",
   "isVerified": false,
   "status": "INACTIVE",
