@@ -3,11 +3,10 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["mongodb"]
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -19,13 +18,13 @@ enum UserStatus {
 }
 
 model users {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  id               String    @id @default(uuid())
   username         String    @unique
   mobile           String    @unique
   email            String?   @unique
   firstName        String?
   lastName         String?
-  password        String
+  password         String
   role             String
   isVerified       Boolean   @default(false)
   status           UserStatus

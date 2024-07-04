@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="5.948">
+  <testsuite name="AppController" errors="0" failures="0" skipped="0" timestamp="2024-07-04T21:51:33" time="5.628" tests="1">
+    <testcase classname="AppController root should return warning message" name="AppController root should return warning message" time="0.033">
+    </testcase>
+  </testsuite>
+</testsuites>

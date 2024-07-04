@@ -1,12 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() {}
 
+  @HttpCode(HttpStatus.BAD_REQUEST)
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return "Please don't call this URL directly.";
   }
 }
