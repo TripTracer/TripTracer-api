@@ -1,5 +1,3 @@
-import { UserStatus } from '../users/users.entity';
-
 export const userMockData = {
   id: 'sample-user-id',
   username: 'john_doe',
@@ -10,7 +8,7 @@ export const userMockData = {
   password: 'hashed_password_string',
   role: 'user',
   isVerified: false,
-  status: UserStatus.PENDING,
+  status: null,
   DOB: new Date('1990-01-01T00:00:00.000Z'),
   address: '123 Main St, Anytown, AN',
   cratedAt: new Date('2023-01-01T00:00:00.000Z'),
